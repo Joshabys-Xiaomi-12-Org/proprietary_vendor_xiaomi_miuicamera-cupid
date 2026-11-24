@@ -152,10 +152,21 @@ cc_prebuilt_library_shared {
     prefer: true,
 }
 
+genrule {
+    name: "MiuiCamera_apk",
+    srcs: [
+        "proprietary/system/priv-app/MiuiCamera/MiuiCamera.apk.xz",
+    ],
+    out: [
+        "MiuiCamera.apk",
+    ],
+    cmd: "xz -dc $(in) > $(out)",
+}
+
 android_app_import {
     name: "MiuiCamera",
     owner: "xiaomi",
-    apk: "proprietary/system/priv-app/MiuiCamera/MiuiCamera.apk",
+    apk: ":MiuiCamera_apk",
     overrides: [
         "Aperture",
     ],
